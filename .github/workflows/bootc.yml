@@ -27,16 +27,13 @@ jobs:
       CONTAINERFILE: Containerfile
 
       # Destination image namespace and name (eg: myrepo/myimage)
-      DEST_IMAGE: "${{ github.actor }}/${{github.event.repository.name}}"
+      DEST_IMAGE: "redhat-et/rhel-bootc-tegra"
 
       # List of tags to publish
       TAGLIST: latest ${{ github.sha }} ${{ github.ref_name }}
 
       # Destination registry for built images
-      DEST_REGISTRY_HOST: "ghcr.io"
-      # Destination credentials - uses platform variables and secrets
-      # DEST_REGISTRY_USER: "${{ github.actor }}"
-      # DEST_REGISTRY_PASSWORD: "${{ secrets.GITHUB_TOKEN }}"
+      DEST_REGISTRY_HOST: "quay.io"
 
     container:
       image: registry.access.redhat.com/ubi9/ubi
@@ -83,8 +80,8 @@ jobs:
         uses: redhat-actions/podman-login@v1
         with:
           registry: ${{ env.DEST_REGISTRY_HOST }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          username: ${{ secrets.DEST_REGISTRY_USER }}
+          password: ${{ secrets.DEST_REGISTRY_PASSWORD }}
           auth_file_path: /run/containers/0/auth.json
 
       - name: Push to GitHub Container Repository
