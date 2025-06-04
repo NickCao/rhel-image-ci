@@ -10,6 +10,8 @@ RUN curl -s -L https://nvidia.github.io/libnvidia-container/stable/rpm/nvidia-co
       nvidia-container-toolkit && \
     sudo dnf clean all
 
+RUN curl -fsSL https://ollama.com/install.sh | sh
+
 RUN mkdir -p /usr/lib/bootc/kargs.d && \
 cat <<EOF >> /usr/lib/bootc/kargs.d/custom.toml
 kargs = ["enforcing=0", "console=ttyTCU0,115200"]
