@@ -3,13 +3,10 @@ name: Build RHEL bootc image with GHA
 on:
   workflow_dispatch:
   push:
-    tags:
-      - '*'
 
 jobs:
   build-tegra-llm-image:
     runs-on: ubuntu-24.04-arm
-    needs: build-tegra-llm
     steps:
       - name: Clone the repository
         uses: actions/checkout@v4
